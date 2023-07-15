@@ -1,0 +1,3 @@
+(fp_lib_table
+  (lib (name "My_Components")(type "KiCad")(uri "/home/albert/Documents/02-PROJECTS/msx-omega/boards/my_kicad_library/My_Components.pretty")(options "")(descr ""))
+)
