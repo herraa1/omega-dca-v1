@@ -144,7 +144,8 @@ Two different options are available to configure the board for 5V output:
 * Option #1: Severing the ADJ trace with a cutter and shorting the 5V pad with a solder blob (you may need a magnifying glass or a soldering microscope to cut the ADJ trace)
 * Option #2: Using a screw driver to adjust the trimpot to the desired 5V voltage (or even a little bit more, up to 5.3V)
 
-Option 1 will provide the native 5V voltage of the board, which may be around 5V with an error margin (it could be 4.9V, 5.0 or 5.1 if the board is ok)
+Option 1 will provide the native 5V voltage of the board, which may be around 5V with an error margin (it could be 4.9V, 5.0V or 5.1V if the board is ok).
+
 Option 2 will configure the board with the selected voltage, which may be difficult to achieve due to the margin of the trimpot. Also, touching the trimpot accidentally can change the output voltage of the board to an undesired voltage (this could be specially dangerous in the 5.4V to 5.5V range, as the over voltage protection won't provide protection there).
 
 It is recommended therefore to use Option #1 with a board that provides 5.0V or 5.1V.
