@@ -1,4 +1,4 @@
-# Omega DCA (DC Adapter) v1
+# Omega DC Adapter (DCA) v1
 
 DC adapter for the [Omega Home Computer](https://github.com/skiselev/omega).
 
@@ -8,14 +8,14 @@ This is a simple DC adapter for the Omega Home Computer with the following featu
 
 * External DC input power supply
 * Wide input voltage from DC +6.5V to DC +24V
-* Max input current 4A
+* Max input current of 4A
 * Power control via external SPDT switch
 * Output voltages:
     * 3x independent regulated DC +5V 1.5A (max 3A)
     * 1x independent regulated DC +12V 700mA and -12V 150mA
 * Three independent power circuits
 * Common Reverse Polarity Protection (RPP), protects the Omega Home Computer from connecting a power barrel with inverted polarity
-* Per circuit thermal shutdown, protects the DCA from damage when operating at exceedingly high temperatures
+* Per circuit thermal shutdown, protects the Omega DC Adapter from damage when operating at exceedingly high temperatures
 * Per circuit shortcircuit and Over Current Protection (OCP), protects the Omega Home Computer from shorts or excessive current (typ 5.5A)
 * Per circuit Over Voltage Protection (OVP), protects the Omega Home Computer from excessive high voltages (typ 5.52V)
 * Per circuit Under Voltage Protection (UVP), protects the Omega Home Computer from excessive low voltages (typ ~3V)
@@ -27,7 +27,7 @@ When I upgraded my Omega Home Computer with an audio amplifier board and a flopp
 * increasing the audio amplifier volume up beyond a certain limit when playing compute intensive games
 * inserting a floppy disk
 
-My Omega Home Computer was using the [dc-adapter 1.5-1.6b](https://msxmakers.design.blog/proyectos/omega-home-computer/mini-fuente-dc-dc/) from [msxmakers!](https://msxmakers.design.blog/) with an external 5V power supply.
+My Omega Home Computer was using the [dc-adapter 1.6b](https://msxmakers.design.blog/proyectos/omega-home-computer/mini-fuente-dc-dc/) from [msxmakers!](https://msxmakers.design.blog/) with an external 5V power supply.
 
 I measured the peak power consumption of the Omega Home Computer at about 1.7A with the audio amplifier on and the floppy drive spinning.
 
@@ -50,23 +50,23 @@ I decided to test if the problem went away by using a separate power supply for 
 So in the end, I decided to design a small power adapter board to provide separate power circuits to the Omega Home Computer, the audio amplifier and video converter, and the floppy drive, and while at it, added several protections just in case something went wrong with the components.
 
 As there are lots of cheap ready to use mini boards providing part of the requirements needed, I just built a "franken-board" cannibalizing other boards to achieve the final goal.
-The Omega DCA was born.
+The Omega DC Adapter was born.
 
 ## Overview
 
-The DC Adapter (DCA) is a small power adapter board to provide protected and regulated power to the Omega Home Computer.
+The Omega DC Adapter is a small power adapter board to provide protected and regulated power to the Omega Home Computer.
 It supports the connection of an external DC power supply and a power switch to control power to the computer.
 
 ![DCA Overview](images/omega-dca-v1-overview.jpg)
 
-The DCA provides 3 independent power circuits:
+The Omega DC Adapter provides 3 independent power circuits:
 * circuit #1 provides power to the Omega Home Computer motherboard and FMPAC (+5V, +12V and -12V) using conectors J10 and J12
 * circuit #2 provides power to the external floppy drive (+5V) using connector J8
 * circuit #3 provides power to the audio amplifier (+5V) using connector J6 and to the video converter (+5V) using connector J7
 
 ## Board
 
-The PCB is a 2-layer design that glues a bunch of ready-to-use mini boards:
+The Omega DC Adapter PCB is a 2-layer design that glues a bunch of ready-to-use mini boards:
 * An ideal diode board at U1 to provide Reverse Polarity Protection, i.e. to avoid damage to the Omega Home Computer if a power supply with an incorrect polarity is connected
 * Three step down mini boards with thermal shutdown and over current protection at J9, J5 and J3 to provide +5V to the three separate power circuits
 * Three over voltage protection mini boards at U2, U3 and U4 to protect the three separate power circuits from overvoltages
@@ -77,27 +77,9 @@ There are aswell:
 * a discharge resistor
 * all the necessary connectors
 
-The mini boards are soldered directly to the Omega DCA board using pin headers.
+The mini boards are soldered directly to the Omega DC Adapter PCB using pin headers.
 
 ![DCA Board](images/omega-dca-v1.jpg)
-
-## Bill Of Materials (BOM)
-
-| **ref**    | **item**                              | **req_pcs** | **aliexpress_item**                                                                                                             | **pcs_per_item** | **req_items** | **option**           | **link**                                                                                                       |
-| ---------- | ------------------------------------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------- | ---------------- | ------------- | -------------------- | -------------------------------------------------------------------------------------------------------------- |
-| U2, U3, U4 | OVP mini board                        | 3           | WeAct Over-Voltage Protection Module OVP 5.5V 2.5A 30V Power-protection Mini                                                    | 1                | 3             |                      | [https://www.aliexpress.com/item/1005001855053619.html](https://www.aliexpress.com/item/1005001855053619.html) |
-| J11        | Step Up +12V -12V board               | 1           | A08 DC-DC Boost Power Supply Module 5V 9V 12V 15V 24V Power Supply Module Ultra Small Step Up Circuit Board                     | 1                | 1             | 12V                  | [https://www.aliexpress.com/item/1005003879333333.html](https://www.aliexpress.com/item/1005003879333333.html) |
-| U1         | Ideal Diode RPP                       | 1           | Ideal Diode Module Battery Charging Charger Anti Reverse Connection Power Protection Board Module 4A Common Ground DC3-30V      | 1                | 1             |                      | [https://www.aliexpress.com/item/1005004921885625.html](https://www.aliexpress.com/item/1005004921885625.html) |
-| J9, J5, J3 | Step Down 5V mini board               | 3           | Mini DC-DC 12-24V To 5V 3A Step Down Power Supply Module Buck Converter Adjustable Efficiency 97.5%                             | 1                | 3             |                      | [https://www.aliexpress.com/item/1005001608750898.html](https://www.aliexpress.com/item/1005001608750898.html) |
-| SW1        | 3P block terminal                     | 1           | 10 PCS KF301-5.0-3P Pitch 5.0mm KF301-3P Straight Pin PCB 2 Pin 3 Pin Screw Terminal Block Connector                            | 10               | 1             | Black                | [https://www.aliexpress.com/item/32842003333.html](https://www.aliexpress.com/item/32842003333.html)           |
-| J2         | 2P block terminal                     | 1           | 10 PCS KF301-5.0-2P Pitch 5.0mm KF301-2P Straight Pin PCB 2 Pin 3 Pin Screw Terminal Block Connector                            | 10               | 1             | Green                | [https://www.aliexpress.com/item/32842015184.html](https://www.aliexpress.com/item/32842015184.html)           |
-| J8         | Berg Connector Right Angle            | 1           | 10pcs Mini 4P Connector Floppy Power Supply Jack 2.54mm Pitch Housing Straight Right Angle Socket Housing Terminals             | 10               | 1             | Right Angle Flat     | [https://www.aliexpress.com/item/1005004647707706.html](https://www.aliexpress.com/item/1005004647707706.html) |
-| J10        | 8P KF2510 Male Straight               | 1           | 20 Sets KF2510 Connector Kits 2.54mm Pitch 2/3/4/5/6/7/8/9/10P Straigh Pin Header+Housing+Crimp KF-2510                         | 20               | 1             | 8P                   | [https://www.aliexpress.com/item/4000229636156.html](https://www.aliexpress.com/item/4000229636156.html)       |
-| F1, F2     | 50mA PTC fuse                         | 2           | JK16 16V Resettable Fuse WDS16 PPTC RGEF 0.5A 0.75A 1.1A 1.35A 1.5A 1.6A 1.85A 2A 2.5A 3A 4A 5A 6A 10A 11A 12A 13A 14A 15A      | 10               | 1             | 0.05A                | [https://www.aliexpress.com/item/32870368102.html](https://www.aliexpress.com/item/32870368102.html)           |
-| J6, J7     | 2P XH2.54 male straight header        | 2           | 230pcs XH2.54 PH2.0 2p 3p 4p 5 pin 2.54mm 2.0mm Pitch Terminal Kit Housing Pin Header JST Connector Wire Connectors Adaptor     | 230              | 1             | XH2.54-1BOX          | [https://www.aliexpress.com/item/33001807525.html](https://www.aliexpress.com/item/33001807525.html)           |
-| J12        | 3P XH2.54 male straight header        | 1           | 230pcs XH2.54 PH2.0 2p 3p 4p 5 pin 2.54mm 2.0mm Pitch Terminal Kit Housing Pin Header JST Connector Wire Connectors Adaptor     |                  | 0             | XH2.54-1BOX          | [https://www.aliexpress.com/item/33001807525.html](https://www.aliexpress.com/item/33001807525.html)           |
-| F1, F2     | 2.54mm pitch round hole female header | 1           | 5 Pcs Round Hole Pin Header 2.0MM/2.54MM Pitch Row Female/Male, Single Row 1x40P Row 2x40P Double Row Pin Round Pin Gold Plated | 5                | 1             | 2.54 1row femal sliv | [https://www.aliexpress.com/item/4001122376295.html](https://www.aliexpress.com/item/4001122376295.html)       |
-| JP3        | 2.54mm pitch male pin header          | 1           | Hot Sale 40Pin 1x40 Single Row Male 2.54 Breakable Pin Header Connector Strip Colorful pin For Arduino Diy Kit                  | 10               | 1             | 5 color              | [https://www.aliexpress.com/item/1005004301488282.html](https://www.aliexpress.com/item/1005004301488282.html) |
 
 ### Jumpers
 
@@ -123,20 +105,23 @@ Otherwise, jumper JP3 should always be open.
 
 It is recommended to always test all the boards before assembling them to verify that they behave as per their specifications.
 
-### Ideal Diode Board (U1)
+### [Ideal Diode Board (U1)](https://www.aliexpress.com/item/1005004921885625.html)
 
-This board provides the reverse polarity protection for the Omega DCA and is based on the 4435 P-MOSFET.
-The board can work up to 30V 4A and adds minimal voltage drop due to its very low RDS(on) of 20mOhm.
-This board works at the external power supply voltage, which must be between 6.5V and 24V as per the DCA board specs design, thus the voltage drop is unimportant in this case.
+This board provides the reverse polarity protection for the Omega DC Adapter and is based on the 4435 P-MOSFET.
 
 ![RPP](images/rpp.jpg)
 
-### Step Down Boards (J9, J5, J3)
+It can work up to 30V 4A and adds minimal voltage drop due to its very low RDS(on) of 20mOhm.
+The board works at the external power supply voltage, which must be between +6.5V and +24V as per the Omega DC Adapter design specifications, thus the voltage drop is unimportant in this case.
+
+### [Step Down Boards (J9, J5, J3)](https://www.aliexpress.com/item/1005001608750898.html)
 
 The mini step-down boards are based on the MP2315 high efficient synchronous step down switch mode converter.
 
+![step-down](images/step-down.jpg)
+
 This integrated circuit provides thermal shutdown at 150C and has a per-cycle current limit protection, which limits current to a 5.5A typically.
-The mini step-down board supports input voltages from 4.5V to 24V, but for the Omega DCA only 6.5V to 24V are supported because of the 5V output required.
+The mini step-down board supports input voltages from 4.5V to 24V, but for the Omega DC Adapter only 6.5V to 24V are supported because of the 5V output required.
 Maximum efficiency is around 97% when a 6.5V input voltage is used. When using a 12V input voltage efficiency stays around 94%.
 The board can sustain a 2.1A load, with peaks of 3A.
 
@@ -150,23 +135,28 @@ Option 2 will configure the board with the selected voltage, which may be diffic
 
 It is recommended therefore to use Option #1 with a board that provides 5.0V or 5.1V.
 
-![step-down](images/step-down.jpg)
+### [Over Voltage Protection Boards (U2, U3, U4)](https://www.aliexpress.com/item/1005001855053619.html)
 
-### Over Voltage Protection Boards (U2, U3, U4)
+Over voltage protection is achieved by a dedicated mini board (really mini!) using an unknown IC with SMD marking 905HM.
 
-Over voltage protection is achieved by a dedicated mini-board using an unknown IC with SMD marking 905HM.
+![OVP_905HM](images/ovp-905hm.jpg)
+
 The board cuts power and turns a red led on when more than 5.5V are detected on the input side of the board. It cuts power too when less than ~3V are detected.
 The over voltage protection board supports input voltages up to 30V, so it is on the safe side even if the step down board (which sits before it) causes a short.
 The board can sustain a 2.5A load, with peaks of 5A, so it is again within the 2.1A load and 3A peak of the step down board.
 
-![OVP](images/ovp.jpg)
-
-### Step Up Board (J11)
+### [Step Up Board (J11)](https://www.aliexpress.com/item/1005003879333333.html)
 
 The Step Up board converts the 5V from the step down board at J9 into +12V and -12V, which are then used on the cartridge slot ports and the FMPAC power connector.
+
+![step-up](images/step-up.jpg)
+
 The board supports input voltages from 3.3V to 11V, within the margins of the over voltage protection board that provides the input voltage.
 On the current side, the board supports a peak 1.8A on the input and provides just a maximum of 700mA for the +12V and 150mA for the -12V.
 
 The cartridge slot ports are protected by 50mA fuses to comply with the max 50mA for all slots MSX specification. 
 
-![step-up](images/step-up.jpg)
+## Build Instructions
+
+Follow these [Build instructions](Build.md) in order to assemble the Omega DC Adapter board.
+
